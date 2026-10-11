@@ -1,0 +1,8 @@
+{
+  "name": "gave-mor",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "npx --yes serve -l ${PORT:-3032} -s ."
+  }
+}

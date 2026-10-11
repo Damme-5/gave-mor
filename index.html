@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<title>Tillykke, mor</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#f6e9e3">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Karla:wght@400;500;600&display=swap">
+<style>
+  :root {
+    --ink: #2e2a2b; --muted: #857a76; --line: #d9ccc6;
+    --sage: #6f8c74; --sage-deep: #55705a; --blush: #f6e9e3; --rose: #c98b7f; --rose-deep: #a8675b;
+    --bg: #f3ebe6; --card: #fffaf7; --gold: #d8b36a;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ink: #f1e9e4; --muted: #b7a9a2; --line: #4a403c;
+      --blush: #3a2f2c; --bg: #1f1a19; --card: #2a2321; --gold: #d8b36a;
+    }
+  }
+  :root[data-theme="dark"] { --ink: #f1e9e4; --muted: #b7a9a2; --line: #4a403c; --blush: #3a2f2c; --bg: #1f1a19; --card: #2a2321; }
+
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: "Karla", system-ui, sans-serif; font-size: 17px; line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    background-image: radial-gradient(circle at 20% 10%, rgba(201,139,127,.18), transparent 45%),
+                      radial-gradient(circle at 85% 90%, rgba(111,140,116,.16), transparent 45%);
+  }
+  main { min-height: 100%; display: grid; place-items: center; padding: 24px 16px calc(24px + env(safe-area-inset-bottom)); }
+  .step { display: none; width: 100%; max-width: 420px; text-align: center; animation: rise .5s ease both; }
+  .step.active { display: block; }
+  @keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+
+  h1, h2 { font-family: "Fraunces", Georgia, serif; font-weight: 600; letter-spacing: -.01em; margin: 0 0 10px; }
+  h1 { font-size: clamp(34px, 9vw, 46px); line-height: 1.08; }
+  h2 { font-size: clamp(26px, 7vw, 32px); line-height: 1.15; }
+  p { margin: 0 0 14px; }
+  .muted { color: var(--muted); }
+  .eyebrow { text-transform: uppercase; letter-spacing: .18em; font-size: 12px; color: var(--rose-deep); font-weight: 600; margin-bottom: 10px; }
+  .script { font-family: "Fraunces", Georgia, serif; font-style: italic; font-size: 20px; color: var(--muted); }
+
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    font: inherit; font-weight: 600; font-size: 17px; padding: 15px 26px; border-radius: 999px; border: 0;
+    background: var(--sage); color: #fff; cursor: pointer; min-width: 180px;
+    box-shadow: 0 8px 22px rgba(85,112,90,.28); transition: transform .12s ease, box-shadow .12s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .btn:active { transform: translateY(1px) scale(.99); box-shadow: 0 4px 12px rgba(85,112,90,.25); }
+  .btn.ghost { background: transparent; color: var(--ink); border: 1.5px solid var(--line); box-shadow: none; }
+  .btn.rose { background: var(--rose); box-shadow: 0 8px 22px rgba(168,103,91,.3); }
+  .btn[disabled] { opacity: .5; cursor: default; box-shadow: none; }
+  .row { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 10px; }
+
+  /* Gaven */
+  .stage { position: relative; height: 300px; display: grid; place-items: end center; margin: 10px auto 18px; max-width: 320px; }
+  .gift { position: relative; width: 190px; height: 190px; cursor: pointer; -webkit-tap-highlight-color: transparent; animation: wiggle 2.4s ease-in-out infinite; transform-origin: 50% 100%; }
+  .gift:focus-visible { outline: 3px solid var(--gold); outline-offset: 8px; border-radius: 12px; }
+  @keyframes wiggle { 0%, 70%, 100% { transform: rotate(0); } 75% { transform: rotate(-3deg); } 80% { transform: rotate(3deg); } 85% { transform: rotate(-2deg); } 90% { transform: rotate(0); } }
+  .box { position: absolute; left: 10px; right: 10px; bottom: 0; height: 130px; background: var(--rose); border-radius: 8px; box-shadow: inset 0 -14px 0 rgba(0,0,0,.08); }
+  .box::before { content: ""; position: absolute; left: 50%; top: 0; bottom: 0; width: 30px; margin-left: -15px; background: var(--gold); }
+  .lid { position: absolute; left: 0; right: 0; top: 46px; height: 34px; background: var(--rose-deep); border-radius: 7px; transform-origin: 50% 100%; transition: transform .7s cubic-bezier(.2,.8,.2,1), opacity .7s; }
+  .lid::before { content: ""; position: absolute; left: 50%; top: 0; bottom: 0; width: 30px; margin-left: -15px; background: var(--gold); }
+  .bow { position: absolute; left: 50%; top: 14px; width: 70px; height: 40px; margin-left: -35px; transition: transform .7s cubic-bezier(.2,.8,.2,1), opacity .5s; }
+  .bow::before, .bow::after { content: ""; position: absolute; top: 4px; width: 30px; height: 30px; border: 7px solid var(--gold); border-radius: 50% 50% 50% 0; }
+  .bow::before { left: 2px; transform: rotate(-45deg); }
+  .bow::after { right: 2px; transform: rotate(45deg) scaleX(-1); }
+  .gift.open { animation: none; }
+  .gift.open .lid { transform: translateY(-150px) rotate(-18deg); opacity: 0; }
+  .gift.open .bow { transform: translateY(-170px) rotate(30deg); opacity: 0; }
+  .gift.open .box { animation: squash .6s ease; }
+  @keyframes squash { 0% { transform: scaleY(1); } 35% { transform: scaleY(.9); } 70% { transform: scaleY(1.04); } 100% { transform: scaleY(1); } }
+  .tap { position: absolute; left: 0; right: 0; bottom: -34px; font-size: 14px; color: var(--muted); }
+
+  .confetti { position: absolute; width: 11px; height: 16px; top: 100px; left: 50%; border-radius: 2px; opacity: 0; pointer-events: none; z-index: 2; }
+  .gift.open .confetti { animation: pop 1.8s cubic-bezier(.1,.7,.3,1) forwards; }
+  @keyframes pop { 0% { opacity: 1; transform: translate(0,0) rotate(0); } 60% { opacity: 1; } 100% { opacity: 0; transform: translate(var(--dx), var(--dy)) rotate(var(--r)); } }
+
+  .card {
+    background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 22px 20px; text-align: left;
+    box-shadow: 0 14px 40px rgba(46,42,43,.08);
+  }
+  .card h2 { text-align: center; }
+  .gift-title { font-family: "Fraunces", Georgia, serif; font-size: 28px; font-weight: 600; text-align: center; margin: 6px 0 4px; }
+  .gift-sub { text-align: center; color: var(--muted); margin-bottom: 16px; }
+  .cup { display: block; margin: 0 auto 8px; width: 64px; height: 64px; color: var(--sage-deep); }
+  ul.list { list-style: none; padding: 0; margin: 0 0 6px; display: grid; gap: 8px; }
+  ul.list li { display: flex; gap: 10px; align-items: flex-start; }
+  ul.list li::before { content: "✦"; color: var(--gold); flex: none; margin-top: 2px; }
+
+  label.field { display: grid; gap: 6px; text-align: left; margin-bottom: 14px; font-weight: 600; font-size: 15px; }
+  input[type=date], input[type=time], textarea {
+    font: inherit; font-size: 17px; padding: 13px 14px; border-radius: 12px; border: 1.5px solid var(--line);
+    background: var(--card); color: var(--ink); width: 100%; min-height: 50px;
+  }
+  textarea { resize: vertical; min-height: 70px; }
+  .chips { display: flex; gap: 8px; flex-wrap: wrap; }
+  .chip { font: inherit; font-size: 15px; padding: 10px 14px; border-radius: 999px; border: 1.5px solid var(--line); background: var(--card); color: var(--ink); cursor: pointer; }
+  .chip[aria-pressed="true"] { background: var(--sage); border-color: var(--sage); color: #fff; }
+  .summary { background: var(--blush); border-radius: 14px; padding: 14px 16px; margin: 6px 0 16px; text-align: left; }
+  .summary b { display: block; font-family: "Fraunces", Georgia, serif; font-size: 20px; font-weight: 600; }
+  .err { color: var(--rose-deep); font-size: 14px; min-height: 20px; margin: -6px 0 8px; text-align: left; }
+  .heart { width: 44px; height: 44px; color: var(--rose); margin: 0 auto 8px; display: block; }
+  .spin { width: 18px; height: 18px; border: 2.5px solid rgba(255,255,255,.4); border-top-color: #fff; border-radius: 50%; animation: spin .8s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .gift, .step { animation: none !important; }
+    .lid, .bow { transition-duration: .01s; }
+    .confetti { display: none; }
+  }
+</style>
+</head>
+<body>
+<main>
+
+  <!-- 1. Hilsen -->
+  <section class="step active" id="s-hello">
+    <div class="eyebrow">Fødselsdag</div>
+    <h1>Tillykke med<br>fødselsdagen, mor</h1>
+    <p class="script">Tak for alle de morgener med kaffe og snak.</p>
+    <p class="muted">Jeg har en lille gave til dig. Den ligger lige herunder.</p>
+    <button class="btn" id="b-start">Se gaven</button>
+  </section>
+
+  <!-- 2. Åbn gaven -->
+  <section class="step" id="s-gift">
+    <h2>Tryk på gaven</h2>
+    <div class="stage">
+      <div class="gift" id="gift" role="button" tabindex="0" aria-label="Åbn gaven">
+        <div class="box"></div>
+        <div class="lid"></div>
+        <div class="bow"></div>
+        <div class="tap">Tryk for at åbne</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Gaven -->
+  <section class="step" id="s-reveal">
+    <div class="card">
+      <svg class="cup" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M14 26h30v12a12 12 0 0 1-12 12h-6a12 12 0 0 1-12-12z"/>
+        <path d="M44 30h4a6 6 0 0 1 0 12h-4"/>
+        <path d="M10 56h40"/>
+        <path d="M24 10c-3 4 3 6 0 10M31 8c-3 4 3 6 0 10M38 10c-3 4 3 6 0 10"/>
+      </svg>
+      <div class="eyebrow" style="text-align:center">Din gave</div>
+      <div class="gift-title">Et kaffekursus for os to</div>
+      <div class="gift-sub">i København, en dag der passer dig</div>
+      <ul class="list">
+        <li>Vi smager os igennem kaffe fra forskellige lande og lærer, hvad der gør en kaffe god.</li>
+        <li>Vi lærer at brygge den rigtigt, så kaffen hjemme bliver bedre.</li>
+        <li>Og så får vi et par timer sammen, kun os to.</li>
+      </ul>
+      <p class="muted" style="text-align:center;margin:12px 0 0;font-size:15px">Kurset ligger hos et rigtigt kafferisteri i byen. Jeg booker det, når du har valgt en dag.</p>
+    </div>
+    <div class="row" style="margin-top:18px">
+      <button class="btn" id="b-toask">Det lyder dejligt</button>
+    </div>
+  </section>
+
+  <!-- 4. Vil du tage imod gaven? -->
+  <section class="step" id="s-ask">
+    <h2>Vil du tage imod gaven?</h2>
+    <p class="muted">Sig ja, så finder vi en dag sammen.</p>
+    <div class="row">
+      <button class="btn" id="b-yes">Ja, meget gerne</button>
+      <button class="btn ghost" id="b-no">Ikke lige nu</button>
+    </div>
+  </section>
+
+  <!-- 5. Dato og tid -->
+  <section class="step" id="s-when">
+    <h2>Hvornår passer det dig?</h2>
+    <p class="muted">Vælg en dag og et tidspunkt, så booker jeg.</p>
+    <form class="card" id="form" novalidate>
+      <label class="field">Dato
+        <input type="date" id="date" required>
+      </label>
+      <label class="field">Tidspunkt
+        <div class="chips" id="chips">
+          <button type="button" class="chip" data-time="10:00">Formiddag · 10</button>
+          <button type="button" class="chip" data-time="13:00">Eftermiddag · 13</button>
+          <button type="button" class="chip" data-time="17:00">Aften · 17</button>
+        </div>
+      </label>
+      <label class="field">Eller et præcist klokkeslæt
+        <input type="time" id="time" step="900">
+      </label>
+      <label class="field">Et par ord til mig (valgfrit)
+        <textarea id="note" placeholder="Fx: weekender er bedst"></textarea>
+      </label>
+      <div class="err" id="err"></div>
+      <div class="row" style="justify-content:stretch">
+        <button class="btn" id="b-send" type="submit" style="flex:1">Send ønsket til Simon</button>
+      </div>
+    </form>
+  </section>
+
+  <!-- 6. Tak -->
+  <section class="step" id="s-done">
+    <svg class="heart" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.6-9.2C1 8.6 3 5 6.5 5c2.1 0 3.6 1.2 4.5 2.6C11.9 6.2 13.4 5 15.5 5 19 5 21 8.6 19.6 11.8 17.5 16.4 12 21 12 21z"/></svg>
+    <h2>Så er det en aftale</h2>
+    <div class="summary"><span class="muted">Dit ønske</span><b id="sum"></b></div>
+    <p id="done-msg" class="muted"></p>
+    <div class="row" id="done-actions"></div>
+    <p class="script" style="margin-top:22px">Kærlig hilsen Simon</p>
+  </section>
+
+  <!-- Nej tak -->
+  <section class="step" id="s-no">
+    <h2>Helt i orden</h2>
+    <p class="muted">Gaven løber ingen steder. Du kan altid scanne koden igen, når det passer bedre.</p>
+    <button class="btn ghost" id="b-back">Tilbage</button>
+    <p class="script" style="margin-top:22px">Kærlig hilsen Simon</p>
+  </section>
+
+</main>
+
+<script>
+  // ---- Indstillinger (ret her) ----
+  const SIMON_PHONE = "";                      // fx "+4512345678" – bruges til SMS-knappen hvis mail-API'et ikke er sat op
+  const SIMON_EMAIL = "simon@quickflows.dk";   // bruges til mail-knappen som nødløsning
+  const API = "/api/book";
+  const KEY = "gave-mor-v1";
+  // ---------------------------------
+
+  const $ = id => document.getElementById(id);
+  const steps = [...document.querySelectorAll(".step")];
+  function show(id) {
+    steps.forEach(s => s.classList.toggle("active", s.id === id));
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  $("b-start").onclick = () => show("s-gift");
+
+  // Gaven åbnes
+  const gift = $("gift");
+  const colors = ["#c98b7f", "#6f8c74", "#d8b36a", "#f6e9e3", "#a8675b"];
+  for (let i = 0; i < 26; i++) {
+    const c = document.createElement("i");
+    c.className = "confetti";
+    const ang = (Math.PI * 2 * i) / 26 + (Math.random() - .5);
+    const dist = 110 + Math.random() * 120;
+    c.style.cssText = `background:${colors[i % colors.length]};--dx:${Math.cos(ang) * dist}px;--dy:${Math.sin(ang) * dist - 120}px;--r:${(Math.random() * 720 - 360)}deg;animation-delay:${Math.random() * .15}s`;
+    gift.appendChild(c);
+  }
+  let opened = false;
+  function openGift() {
+    if (opened) return; opened = true;
+    gift.classList.add("open");
+    gift.querySelector(".tap").textContent = "";
+    if (navigator.vibrate) navigator.vibrate(30);
+    setTimeout(() => show("s-reveal"), 1300);
+  }
+  gift.addEventListener("click", openGift);
+  gift.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openGift(); } });
+
+  $("b-toask").onclick = () => show("s-ask");
+  $("b-yes").onclick = () => show("s-when");
+  $("b-no").onclick = () => show("s-no");
+  $("b-back").onclick = () => show("s-ask");
+
+  // Dato/tid
+  const dateEl = $("date"), timeEl = $("time");
+  const today = new Date(); today.setDate(today.getDate() + 1);
+  dateEl.min = today.toISOString().slice(0, 10);
+  $("chips").addEventListener("click", e => {
+    const b = e.target.closest(".chip"); if (!b) return;
+    [...$("chips").children].forEach(x => x.setAttribute("aria-pressed", x === b));
+    timeEl.value = b.dataset.time;
+  });
+  timeEl.addEventListener("input", () => [...$("chips").children].forEach(x => x.setAttribute("aria-pressed", x.dataset.time === timeEl.value)));
+
+  const fmtDate = iso => new Date(iso + "T12:00:00").toLocaleDateString("da-DK", { weekday: "long", day: "numeric", month: "long", year: "numeric" });
+  const fmtTime = t => t ? "kl. " + t.replace(":", ".") : "";
+
+  $("form").addEventListener("submit", async e => {
+    e.preventDefault();
+    const date = dateEl.value, time = timeEl.value, note = $("note").value.trim();
+    if (!date) { $("err").textContent = "Vælg en dato først."; dateEl.focus(); return; }
+    if (!time) { $("err").textContent = "Vælg et tidspunkt."; return; }
+    $("err").textContent = "";
+    const btn = $("b-send"); btn.disabled = true; btn.innerHTML = '<span class="spin"></span> Sender…';
+
+    const wish = { date, time, note, accepted: true, at: new Date().toISOString() };
+    try { localStorage.setItem(KEY, JSON.stringify(wish)); } catch (_) {}
+
+    let mailed = false;
+    try {
+      const r = await fetch(API, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(wish) });
+      const j = await r.json().catch(() => ({}));
+      mailed = !!(r.ok && j.mailed);
+    } catch (_) {}
+
+    const line = `${fmtDate(date)} ${fmtTime(time)}`;
+    $("sum").textContent = line.charAt(0).toUpperCase() + line.slice(1);
+    const text = `Hej Simon. Ja tak til kaffekurset! Jeg vil gerne ${fmtDate(date)} ${fmtTime(time)}.${note ? " " + note + (/[.!?]$/.test(note) ? "" : ".") : ""} Kærlig hilsen mor`;
+    const actions = $("done-actions"); actions.innerHTML = "";
+    if (mailed) {
+      $("done-msg").textContent = "Dit ønske er sendt til Simon. Han booker kurset og skriver til dig.";
+    } else {
+      $("done-msg").textContent = "Tryk på knappen, så sender du ønsket til Simon som en besked.";
+      const a = document.createElement("a"); a.className = "btn rose";
+      if (SIMON_PHONE) { a.href = `sms:${SIMON_PHONE}?&body=${encodeURIComponent(text)}`; a.textContent = "Send som SMS til Simon"; }
+      else { a.href = `mailto:${SIMON_EMAIL}?subject=${encodeURIComponent("Ja tak til kaffekurset")}&body=${encodeURIComponent(text)}`; a.textContent = "Send besked til Simon"; }
+      actions.appendChild(a);
+    }
+    btn.disabled = false; btn.textContent = "Send ønsket til Simon";
+    show("s-done");
+  });
+</script>
+</body>
+</html>

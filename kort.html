@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<title>QR-kort til gaven</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Karla:wght@400;500&display=swap">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+<style>
+  @page { size: A5 portrait; margin: 0; }
+  :root { --ink: #2e2a2b; --muted: #857a76; --line: #d9ccc6; --sage: #6f8c74; --blush: #f6e9e3; --rose: #c98b7f; --desk: #ece6e2; --gold: #d8b36a; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--desk); color: var(--ink); font-family: "Karla", system-ui, sans-serif; }
+  .panel { max-width: 148mm; margin: 24px auto 16px; padding: 16px; background: #fff; border-radius: 8px; display: grid; gap: 10px; }
+  .panel label { display: grid; gap: 4px; font-size: 13px; color: var(--muted); }
+  .panel input { font: inherit; font-size: 15px; padding: 8px 10px; border: 1px solid var(--line); border-radius: 6px; color: var(--ink); }
+  .hint { font-size: 13px; color: var(--muted); margin: 0; }
+  .sheet { width: 148mm; height: 210mm; margin: 0 auto 24px; background: var(--blush); position: relative; padding: 22mm 18mm; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 10px 30px rgba(0,0,0,.12); }
+  .top { text-align: center; }
+  .eyebrow { text-transform: uppercase; letter-spacing: .2em; font-size: 10px; color: #a8675b; font-weight: 500; }
+  h1 { font-family: "Fraunces", Georgia, serif; font-weight: 600; font-size: 30px; line-height: 1.1; margin: 8px 0 10px; }
+  .script { font-family: "Fraunces", Georgia, serif; font-style: italic; color: var(--muted); font-size: 15px; margin: 0; }
+  .qr-wrap { display: grid; place-items: center; gap: 12px; }
+  .qr { width: 62mm; height: 62mm; padding: 5mm; background: #fff; border-radius: 10px; box-shadow: 0 6px 20px rgba(0,0,0,.08); }
+  .qr svg { width: 100%; height: 100%; display: block; }
+  .foot { text-align: center; }
+  .foot-title { font-family: "Fraunces", Georgia, serif; font-size: 18px; font-weight: 600; margin-bottom: 4px; }
+  .foot-sub { font-size: 13px; color: var(--muted); }
+  .sign { font-family: "Fraunces", Georgia, serif; font-style: italic; margin-top: 14px; }
+  .sprig { position: absolute; width: 22mm; color: var(--sage); opacity: .7; }
+  .sprig.tl { top: 8mm; left: 8mm; } .sprig.br { right: 8mm; bottom: 8mm; transform: rotate(180deg); }
+  @media print { body { background: #fff; } .panel { display: none; } .sheet { margin: 0; box-shadow: none; } }
+</style>
+</head>
+<body>
+<form class="panel" onsubmit="return false">
+  <label>Link QR-koden skal åbne
+    <input type="url" id="url" placeholder="https://…">
+  </label>
+  <label>Overskrift <input type="text" id="h1" value="Tillykke med fødselsdagen, mor"></label>
+  <label>Tekst ved koden <input type="text" id="ft" value="Din gave gemmer sig bag koden"></label>
+  <label>Undertekst <input type="text" id="fs" value="Ret mobilens kamera mod koden, så åbner den."></label>
+  <label>Afsender <input type="text" id="sign" value="Kærlig hilsen Simon"></label>
+  <p class="hint">Print: <b>Cmd+P</b> → papir A5 og slå <b>"Baggrundsgrafik"</b> til. Linket er som standard den adresse kortet er åbnet fra.</p>
+</form>
+
+<main class="sheet">
+  <svg class="sprig tl" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" aria-hidden="true"><path d="M6 34 C 12 24, 20 16, 34 8"/><path d="M12 26 c -1 -5 1 -9 5 -10 c 0 5 -2 8 -5 10z" fill="currentColor" fill-opacity=".18"/><path d="M14 23 c 4 1 8 0 10 -3 c -4 -1 -8 0 -10 3z" fill="currentColor" fill-opacity=".18"/><path d="M20 17 c 0 -5 2 -8 6 -9 c 0 4 -2 7 -6 9z" fill="currentColor" fill-opacity=".18"/><path d="M23 14 c 4 1 7 0 9 -2 c -3 -2 -7 -1 -9 2z" fill="currentColor" fill-opacity=".18"/></svg>
+  <svg class="sprig br" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" aria-hidden="true"><path d="M6 34 C 12 24, 20 16, 34 8"/><path d="M12 26 c -1 -5 1 -9 5 -10 c 0 5 -2 8 -5 10z" fill="currentColor" fill-opacity=".18"/><path d="M14 23 c 4 1 8 0 10 -3 c -4 -1 -8 0 -10 3z" fill="currentColor" fill-opacity=".18"/><path d="M20 17 c 0 -5 2 -8 6 -9 c 0 4 -2 7 -6 9z" fill="currentColor" fill-opacity=".18"/><path d="M23 14 c 4 1 7 0 9 -2 c -3 -2 -7 -1 -9 2z" fill="currentColor" fill-opacity=".18"/></svg>
+  <div class="top">
+    <div class="eyebrow">Fødselsdag</div>
+    <h1 id="o-h1"></h1>
+    <p class="script">Tak for alle de morgener med kaffe og snak.</p>
+  </div>
+  <div class="qr-wrap"><div class="qr" id="qr"></div></div>
+  <div class="foot">
+    <div class="foot-title" id="o-ft"></div>
+    <div class="foot-sub" id="o-fs"></div>
+    <div class="sign" id="o-sign"></div>
+  </div>
+</main>
+
+<script>
+  const $ = id => document.getElementById(id);
+  const ids = ["url", "h1", "ft", "fs", "sign"];
+  $("url").value = location.origin + "/";
+  function render() {
+    $("o-h1").textContent = $("h1").value; $("o-ft").textContent = $("ft").value;
+    $("o-fs").textContent = $("fs").value; $("o-sign").textContent = $("sign").value;
+    try {
+      const q = qrcode(0, "M"); q.addData($("url").value || location.origin + "/"); q.make();
+      $("qr").innerHTML = q.createSvgTag({ cellSize: 4, margin: 0, scalable: true });
+    } catch (e) { $("qr").textContent = "Linket er for langt"; }
+  }
+  ids.forEach(k => $(k).addEventListener("input", render));
+  render();
+</script>
+</body>
+</html>
