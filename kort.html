@@ -65,12 +65,13 @@
 <script>
   const $ = id => document.getElementById(id);
   const ids = ["url", "h1", "ft", "fs", "sign"];
-  $("url").value = location.origin + "/";
+  const BASE = new URL("./", location.href).href;
+  $("url").value = BASE;
   function render() {
     $("o-h1").textContent = $("h1").value; $("o-ft").textContent = $("ft").value;
     $("o-fs").textContent = $("fs").value; $("o-sign").textContent = $("sign").value;
     try {
-      const q = qrcode(0, "M"); q.addData($("url").value || location.origin + "/"); q.make();
+      const q = qrcode(0, "M"); q.addData($("url").value || BASE); q.make();
       $("qr").innerHTML = q.createSvgTag({ cellSize: 4, margin: 0, scalable: true });
     } catch (e) { $("qr").textContent = "Linket er for langt"; }
   }
