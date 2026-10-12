@@ -124,7 +124,7 @@
     <div class="eyebrow">Fødselsdag</div>
     <h1>Tillykke med<br>fødselsdagen, mor</h1>
     <p class="script">Tak for alle de morgener med kaffe og snak.</p>
-    <p class="muted">Jeg har en lille gave til dig. Den ligger lige herunder.</p>
+    <p class="muted">Vi har en lille gave til dig. Den ligger lige herunder.</p>
     <button class="btn" id="b-start">Se gaven</button>
   </section>
 
@@ -151,14 +151,12 @@
         <path d="M24 10c-3 4 3 6 0 10M31 8c-3 4 3 6 0 10M38 10c-3 4 3 6 0 10"/>
       </svg>
       <div class="eyebrow" style="text-align:center">Din gave</div>
-      <div class="gift-title">Et kaffekursus for os to</div>
+      <div class="gift-title">Et kaffekursus sammen med os</div>
       <div class="gift-sub">i København, en dag der passer dig</div>
       <ul class="list">
         <li>Vi smager os igennem kaffe fra forskellige lande og lærer, hvad der gør en kaffe god.</li>
-        <li>Vi lærer at brygge den rigtigt, så kaffen hjemme bliver bedre.</li>
-        <li>Og så får vi et par timer sammen, kun os to.</li>
       </ul>
-      <p class="muted" style="text-align:center;margin:12px 0 0;font-size:15px">Kurset ligger hos et rigtigt kafferisteri i byen. Jeg booker det, når du har valgt en dag.</p>
+      <p class="muted" style="text-align:center;margin:12px 0 0;font-size:15px">Kurset ligger hos et rigtigt kafferisteri i byen. Vi booker det, når du har valgt en dag.</p>
     </div>
     <div class="row" style="margin-top:18px">
       <button class="btn" id="b-toask">Det lyder dejligt</button>
@@ -178,7 +176,7 @@
   <!-- 5. Dato og tid -->
   <section class="step" id="s-when">
     <h2>Hvornår passer det dig?</h2>
-    <p class="muted">Vælg en dag og et tidspunkt, så booker jeg.</p>
+    <p class="muted">Vælg en dag og et tidspunkt, så booker vi.</p>
     <form class="card" id="form" novalidate>
       <label class="field">Dato
         <input type="date" id="date" required>
@@ -198,7 +196,7 @@
       </label>
       <div class="err" id="err"></div>
       <div class="row" style="justify-content:stretch">
-        <button class="btn" id="b-send" type="submit" style="flex:1">Send ønsket til Simon</button>
+        <button class="btn" id="b-send" type="submit" style="flex:1">Send ønsket til Simon og Lise</button>
       </div>
     </form>
   </section>
@@ -210,7 +208,7 @@
     <div class="summary"><span class="muted">Dit ønske</span><b id="sum"></b></div>
     <p id="done-msg" class="muted"></p>
     <div class="row" id="done-actions"></div>
-    <p class="script" style="margin-top:22px">Kærlig hilsen Simon</p>
+    <p class="script" style="margin-top:22px">Kærlig hilsen Simon og Lise</p>
   </section>
 
   <!-- Nej tak -->
@@ -218,7 +216,7 @@
     <h2>Helt i orden</h2>
     <p class="muted">Gaven løber ingen steder. Du kan altid scanne koden igen, når det passer bedre.</p>
     <button class="btn ghost" id="b-back">Tilbage</button>
-    <p class="script" style="margin-top:22px">Kærlig hilsen Simon</p>
+    <p class="script" style="margin-top:22px">Kærlig hilsen Simon og Lise</p>
   </section>
 
 </main>
@@ -301,18 +299,18 @@
 
     const line = `${fmtDate(date)} ${fmtTime(time)}`;
     $("sum").textContent = line.charAt(0).toUpperCase() + line.slice(1);
-    const text = `Hej Simon. Ja tak til kaffekurset! Jeg vil gerne ${fmtDate(date)} ${fmtTime(time)}.${note ? " " + note + (/[.!?]$/.test(note) ? "" : ".") : ""} Kærlig hilsen mor`;
+    const text = `Hej Simon og Lise. Ja tak til kaffekurset! Jeg vil gerne ${fmtDate(date)} ${fmtTime(time)}.${note ? " " + note + (/[.!?]$/.test(note) ? "" : ".") : ""} Kærlig hilsen mor`;
     const actions = $("done-actions"); actions.innerHTML = "";
     if (mailed) {
-      $("done-msg").textContent = "Dit ønske er sendt til Simon. Han booker kurset og skriver til dig.";
+      $("done-msg").textContent = "Dit ønske er sendt til Simon og Lise. Vi booker kurset og skriver til dig.";
     } else {
-      $("done-msg").textContent = "Tryk på knappen, så sender du ønsket til Simon som en besked.";
+      $("done-msg").textContent = "Tryk på knappen, så sender du ønsket til os som en besked.";
       const a = document.createElement("a"); a.className = "btn rose";
       if (SIMON_PHONE) { a.href = `sms:${SIMON_PHONE}?&body=${encodeURIComponent(text)}`; a.textContent = "Send som SMS til Simon"; }
       else { a.href = `mailto:${SIMON_EMAIL}?subject=${encodeURIComponent("Ja tak til kaffekurset")}&body=${encodeURIComponent(text)}`; a.textContent = "Send besked til Simon"; }
       actions.appendChild(a);
     }
-    btn.disabled = false; btn.textContent = "Send ønsket til Simon";
+    btn.disabled = false; btn.textContent = "Send ønsket til Simon og Lise";
     show("s-done");
   });
 </script>
