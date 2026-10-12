@@ -102,6 +102,8 @@
   .chips { display: flex; gap: 8px; flex-wrap: wrap; }
   .chip { font: inherit; font-size: 15px; padding: 10px 14px; border-radius: 999px; border: 1.5px solid var(--line); background: var(--card); color: var(--ink); cursor: pointer; }
   .chip[aria-pressed="true"] { background: var(--sage); border-color: var(--sage); color: #fff; }
+  .howto { margin-top: 14px; }
+  .howto ol { margin: 0; padding-left: 22px; display: grid; gap: 6px; }
   .summary { background: var(--blush); border-radius: 14px; padding: 14px 16px; margin: 6px 0 16px; text-align: left; }
   .summary b { display: block; font-family: "Fraunces", Georgia, serif; font-size: 20px; font-weight: 600; }
   .err { color: var(--rose-deep); font-size: 14px; min-height: 20px; margin: -6px 0 8px; text-align: left; }
@@ -123,7 +125,7 @@
   <section class="step active" id="s-hello">
     <div class="eyebrow">Fødselsdag</div>
     <h1>Tillykke med<br>fødselsdagen, mor</h1>
-    <p class="script">Tak for alle de morgener med kaffe og snak.</p>
+    <p class="script">Vi siger tak for alle de morgener med kaffe og snak.</p>
     <p class="muted">Vi har en lille gave til dig. Den ligger lige herunder.</p>
     <button class="btn" id="b-start">Se gaven</button>
   </section>
@@ -158,15 +160,24 @@
       </ul>
       <p class="muted" style="text-align:center;margin:12px 0 0;font-size:15px">Kurset ligger hos et rigtigt kafferisteri i byen. Vi booker det, når du har valgt en dag.</p>
     </div>
+    <div class="card howto">
+      <div class="eyebrow" style="text-align:center">Sådan gør du</div>
+      <ol>
+        <li>Tryk på knappen herunder.</li>
+        <li>Sig ja tak til gaven.</li>
+        <li>Vælg en dag og et tidspunkt, der passer dig.</li>
+        <li>Send dit ønske til os. Så booker vi kurset og skriver til dig.</li>
+      </ol>
+    </div>
     <div class="row" style="margin-top:18px">
-      <button class="btn" id="b-toask">Det lyder dejligt</button>
+      <button class="btn" id="b-toask">Videre til gaven</button>
     </div>
   </section>
 
   <!-- 4. Vil du tage imod gaven? -->
   <section class="step" id="s-ask">
     <h2>Vil du tage imod gaven?</h2>
-    <p class="muted">Sig ja, så finder vi en dag sammen.</p>
+    <p class="muted">Tryk "Ja, meget gerne", så vælger du en dag på næste side.</p>
     <div class="row">
       <button class="btn" id="b-yes">Ja, meget gerne</button>
       <button class="btn ghost" id="b-no">Ikke lige nu</button>
@@ -176,7 +187,7 @@
   <!-- 5. Dato og tid -->
   <section class="step" id="s-when">
     <h2>Hvornår passer det dig?</h2>
-    <p class="muted">Vælg en dag og et tidspunkt, så booker vi.</p>
+    <p class="muted">Vælg først en dag, så et tidspunkt, og tryk på den grønne knap. Så booker vi.</p>
     <form class="card" id="form" novalidate>
       <label class="field">Dato
         <input type="date" id="date" required>
@@ -187,12 +198,6 @@
           <button type="button" class="chip" data-time="13:00">Eftermiddag · 13</button>
           <button type="button" class="chip" data-time="17:00">Aften · 17</button>
         </div>
-      </label>
-      <label class="field">Eller et præcist klokkeslæt
-        <input type="time" id="time" step="900">
-      </label>
-      <label class="field">Et par ord til mig (valgfrit)
-        <textarea id="note" placeholder="Fx: weekender er bedst"></textarea>
       </label>
       <div class="err" id="err"></div>
       <div class="row" style="justify-content:stretch">
@@ -266,24 +271,23 @@
   $("b-back").onclick = () => show("s-ask");
 
   // Dato/tid
-  const dateEl = $("date"), timeEl = $("time");
+  const dateEl = $("date"); let chosenTime = "";
   const today = new Date(); today.setDate(today.getDate() + 1);
   dateEl.min = today.toISOString().slice(0, 10);
   $("chips").addEventListener("click", e => {
     const b = e.target.closest(".chip"); if (!b) return;
     [...$("chips").children].forEach(x => x.setAttribute("aria-pressed", x === b));
-    timeEl.value = b.dataset.time;
+    chosenTime = b.dataset.time;
   });
-  timeEl.addEventListener("input", () => [...$("chips").children].forEach(x => x.setAttribute("aria-pressed", x.dataset.time === timeEl.value)));
 
   const fmtDate = iso => new Date(iso + "T12:00:00").toLocaleDateString("da-DK", { weekday: "long", day: "numeric", month: "long", year: "numeric" });
   const fmtTime = t => t ? "kl. " + t.replace(":", ".") : "";
 
   $("form").addEventListener("submit", async e => {
     e.preventDefault();
-    const date = dateEl.value, time = timeEl.value, note = $("note").value.trim();
+    const date = dateEl.value, time = chosenTime, note = "";
     if (!date) { $("err").textContent = "Vælg en dato først."; dateEl.focus(); return; }
-    if (!time) { $("err").textContent = "Vælg et tidspunkt."; return; }
+    if (!time) { $("err").textContent = "Vælg et tidspunkt (formiddag, eftermiddag eller aften)."; return; }
     $("err").textContent = "";
     const btn = $("b-send"); btn.disabled = true; btn.innerHTML = '<span class="spin"></span> Sender…';
 
