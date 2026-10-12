@@ -218,7 +218,8 @@
   // ---- Indstillinger (ret her) ----
   const SIMON_PHONE = "";                      // fx "+4512345678" – bruges til SMS-knappen hvis mail-API'et ikke er sat op
   const SIMON_EMAIL = "simon@quickflows.dk";   // bruges til mail-knappen som nødløsning
-  const API = "/api/book";
+  const WEB3FORMS_KEY = "5e381362-eb45-4c73-bcc8-88b6dfbc88d6"; // web3forms.com – mailer ønsket til Simon
+  const API = "/api/book";                     // bruges kun hvis siden kører på Vercel og nøglen er tom
   const KEY = "gave-mor-v1";
   // ---------------------------------
 
@@ -282,14 +283,31 @@
     const wish = { date, time, note, accepted: true, at: new Date().toISOString() };
     try { localStorage.setItem(KEY, JSON.stringify(wish)); } catch (_) {}
 
+    const line = `${fmtDate(date)} ${fmtTime(time)}`;
     let mailed = false;
     try {
-      const r = await fetch(API, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(wish) });
-      const j = await r.json().catch(() => ({}));
-      mailed = !!(r.ok && (j.mailed || j.saved));
+      if (WEB3FORMS_KEY) {
+        const r = await fetch("https://api.web3forms.com/submit", {
+          method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: JSON.stringify({
+            access_key: WEB3FORMS_KEY,
+            subject: `Mor vil gerne på kaffekursus: ${line}`,
+            from_name: "Gavesiden",
+            "Svar": "Ja tak til kaffekurset",
+            "Dato": fmtDate(date),
+            "Tidspunkt": time,
+            "Sendt": new Date().toLocaleString("da-DK"),
+          }),
+        });
+        const j = await r.json().catch(() => ({}));
+        mailed = !!(r.ok && j.success);
+      } else {
+        const r = await fetch(API, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(wish) });
+        const j = await r.json().catch(() => ({}));
+        mailed = !!(r.ok && (j.mailed || j.saved));
+      }
     } catch (_) {}
 
-    const line = `${fmtDate(date)} ${fmtTime(time)}`;
     $("sum").textContent = line.charAt(0).toUpperCase() + line.slice(1);
     const text = `Hej Simon og Lise. Ja tak til kaffekurset! Jeg vil gerne ${fmtDate(date)} ${fmtTime(time)}.${note ? " " + note + (/[.!?]$/.test(note) ? "" : ".") : ""} Kærlig hilsen mor`;
     const actions = $("done-actions"); actions.innerHTML = "";
