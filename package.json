@@ -4,5 +4,8 @@
   "type": "module",
   "scripts": {
     "dev": "npx --yes serve -l ${PORT:-3032} -s ."
+  },
+  "dependencies": {
+    "@vercel/blob": "^1.1.1"
   }
 }

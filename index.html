@@ -102,8 +102,6 @@
   .chips { display: flex; gap: 8px; flex-wrap: wrap; }
   .chip { font: inherit; font-size: 15px; padding: 10px 14px; border-radius: 999px; border: 1.5px solid var(--line); background: var(--card); color: var(--ink); cursor: pointer; }
   .chip[aria-pressed="true"] { background: var(--sage); border-color: var(--sage); color: #fff; }
-  .howto { margin-top: 14px; }
-  .howto ol { margin: 0; padding-left: 22px; display: grid; gap: 6px; }
   .summary { background: var(--blush); border-radius: 14px; padding: 14px 16px; margin: 6px 0 16px; text-align: left; }
   .summary b { display: block; font-family: "Fraunces", Georgia, serif; font-size: 20px; font-weight: 600; }
   .err { color: var(--rose-deep); font-size: 14px; min-height: 20px; margin: -6px 0 8px; text-align: left; }
@@ -125,7 +123,6 @@
   <section class="step active" id="s-hello">
     <div class="eyebrow">Fødselsdag</div>
     <h1>Tillykke med<br>fødselsdagen, mor</h1>
-    <p class="script">Vi siger tak for alle de morgener med kaffe og snak.</p>
     <p class="muted">Vi har en lille gave til dig. Den ligger lige herunder.</p>
     <button class="btn" id="b-start">Se gaven</button>
   </section>
@@ -159,15 +156,6 @@
         <li>Vi smager os igennem kaffe fra forskellige lande og lærer, hvad der gør en kaffe god.</li>
       </ul>
       <p class="muted" style="text-align:center;margin:12px 0 0;font-size:15px">Kurset ligger hos et rigtigt kafferisteri i byen. Vi booker det, når du har valgt en dag.</p>
-    </div>
-    <div class="card howto">
-      <div class="eyebrow" style="text-align:center">Sådan gør du</div>
-      <ol>
-        <li>Tryk på knappen herunder.</li>
-        <li>Sig ja tak til gaven.</li>
-        <li>Vælg en dag og et tidspunkt, der passer dig.</li>
-        <li>Send dit ønske til os. Så booker vi kurset og skriver til dig.</li>
-      </ol>
     </div>
     <div class="row" style="margin-top:18px">
       <button class="btn" id="b-toask">Videre til gaven</button>
@@ -298,7 +286,7 @@
     try {
       const r = await fetch(API, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(wish) });
       const j = await r.json().catch(() => ({}));
-      mailed = !!(r.ok && j.mailed);
+      mailed = !!(r.ok && (j.mailed || j.saved));
     } catch (_) {}
 
     const line = `${fmtDate(date)} ${fmtTime(time)}`;
