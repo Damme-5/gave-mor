@@ -310,8 +310,8 @@
     } else {
       $("done-msg").textContent = "Tryk på knappen, så sender du ønsket til os som en besked.";
       const a = document.createElement("a"); a.className = "btn rose";
-      if (SIMON_PHONE) { a.href = `sms:${SIMON_PHONE}?&body=${encodeURIComponent(text)}`; a.textContent = "Send som SMS til Simon"; }
-      else { a.href = `mailto:${SIMON_EMAIL}?subject=${encodeURIComponent("Ja tak til kaffekurset")}&body=${encodeURIComponent(text)}`; a.textContent = "Send besked til Simon"; }
+      if (SIMON_PHONE) { a.href = `sms:${SIMON_PHONE}?&body=${encodeURIComponent(text)}`; a.textContent = "Send som SMS til Simon og Lise"; }
+      else { a.href = `mailto:${SIMON_EMAIL}?subject=${encodeURIComponent("Ja tak til kaffekurset")}&body=${encodeURIComponent(text)}`; a.textContent = "Send besked til Simon og Lise"; }
       actions.appendChild(a);
     }
     btn.disabled = false; btn.textContent = "Send ønsket til Simon og Lise";
